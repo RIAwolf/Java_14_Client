@@ -22,7 +22,12 @@ public class Controller {
         _model = new Model();
     }
 
-
+    private void run(){
+        String fromServer =""; ;
+        while ((fromServer=_model.getData()) != null) {
+            logArea.appendText(fromServer);
+        }
+    }
 
     public void onSendButton() {
         String msg = "";

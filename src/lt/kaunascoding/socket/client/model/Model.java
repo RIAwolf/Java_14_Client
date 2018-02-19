@@ -38,7 +38,7 @@ public class Model {
     }
 
     public String getData() {
-        String result = "";
+        String result = null;
         try {
             result = _inputStream.readUTF();
         } catch (IOException e) {
