@@ -40,7 +40,9 @@ public class Model {
     public String getData() {
         String result = null;
         try {
-            result = _inputStream.readUTF();
+
+                result = _inputStream.readUTF();
+
         } catch (IOException e) {
             e.printStackTrace();
         }

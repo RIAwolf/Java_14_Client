@@ -8,6 +8,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import lt.kaunascoding.socket.client.model.Model;
 
+import java.util.concurrent.TimeUnit;
+
 public class Controller {
 
     public TextArea logArea;
@@ -20,19 +22,19 @@ public class Controller {
     public Controller() {
 
         _model = new Model();
+
     }
 
-    private void run(){
-        String fromServer =""; ;
-        while ((fromServer=_model.getData()) != null) {
-            logArea.appendText(fromServer);
-        }
+    private void run() {
+        String fromServer = _model.getData();
+        logArea.appendText(fromServer);
+
     }
 
     public void onSendButton() {
         String msg = "";
         msg += nickInput.getText();
-        msg += ":" + messageInput.getText()+"\n";
+        msg += ":" + messageInput.getText() + "\n";
         _model.sendData(msg);
         logArea.appendText(msg);
         sendButton.setDisable(true);
@@ -46,8 +48,8 @@ public class Controller {
             sendButton.setDisable(false);
         }
 
-        if(sendButton.isDisabled()== false){
-            if(keyEvent.getCode() == KeyCode.ENTER){
+        if (sendButton.isDisabled() == false) {
+            if (keyEvent.getCode() == KeyCode.ENTER) {
                 onSendButton();
             }
         }
