@@ -8,6 +8,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import lt.kaunascoding.socket.client.model.Model;
 
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 public class Controller {
@@ -23,14 +25,25 @@ public class Controller {
 
         _model = new Model();
 
+        run();
     }
 
-    private void run() {
-        String fromServer = _model.getData();
-        logArea.appendText(fromServer);
+    private void run(){
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
 
+            @Override
+            public void run() {
+                doTimer();
+            }
+        }, 500, 500);
     }
 
+
+    public void doTimer(){
+        logArea.appendText(_model.getData());
+
+    }
     public void onSendButton() {
         String msg = "";
         msg += nickInput.getText();

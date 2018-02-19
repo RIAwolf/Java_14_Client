@@ -1,9 +1,14 @@
 package lt.kaunascoding.socket.client.model;
 
+
+import javafx.scene.control.TextArea;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Model {
     public static final String HOST = "127.0.0.1";
@@ -37,15 +42,39 @@ public class Model {
 
     }
 
+
     public String getData() {
-        String result = null;
+        String result = "";
+
+        String zinute = "";
+        int bytesAvailable = 0;
         try {
-
-                result = _inputStream.readUTF();
-
-        } catch (IOException e) {
+            bytesAvailable = _inputStream.available();
+        } catch (Exception e) {
             e.printStackTrace();
         }
+
+
+        if (bytesAvailable <= 0) {
+            return result;
+        }
+
+        while (bytesAvailable > 0) {
+            try {
+                zinute = _inputStream.readUTF();
+                bytesAvailable = _inputStream.available();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (zinute != null) {
+                result += zinute;
+                zinute = null;
+
+            }
+        }
+        System.out.println("Ciklas baigesi");
+
+
         return result;
     }
 }
